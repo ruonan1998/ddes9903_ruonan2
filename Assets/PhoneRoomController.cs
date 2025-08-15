@@ -1,43 +1,49 @@
 using UnityEngine;
+using System.Collections;
 
 public class PhoneRoomController : MonoBehaviour
 {
-    [Header("好鬼 / 坏鬼")]
-    public GameObject goodGhost;               // 初始隐藏
-    public GameObject badGhost;                // 初始隐藏
+    [Header("延迟设置")]
+    public float typableMatchDelay = 4f;   // Typable 匹配成功后延迟
+    public float answerButtonDelay = 3f;   // 按下按钮后的延迟
 
-    [Header("分数 & 另一个房间")]
-    public int successPoints = 1;
-    public int failPoints = 0;
-    public string otherRoomSceneName = "Xylophone Room";
+    private bool roomCompleted = false;
 
-    private bool locked = false;
-
-    // 你的按钮/交互事件调用这个方法
-    public void ResolvePhone(bool correct)
+    /// <summary>
+    /// Typable Match 成功时调用
+    /// </summary>
+    public void OnTypableMatchSuccess()
     {
-        if (locked) return;
-        locked = true;
+        if (roomCompleted) return;
+        roomCompleted = true;
+        StartCoroutine(DelayedComplete(typableMatchDelay, true));
+    }
 
-        if (correct)
+    /// <summary>
+    /// Answer 按钮按下时调用
+    /// </summary>
+    public void OnAnswerButtonPressed(bool success)
+    {
+        if (roomCompleted) return;
+        roomCompleted = true;
+        StartCoroutine(DelayedComplete(answerButtonDelay, success));
+    }
+
+    /// <summary>
+    /// 延迟后通知 GameStateManager
+    /// </summary>
+    private IEnumerator DelayedComplete(float delay, bool success)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (GameStateManager.Instance != null)
         {
-            GameStateManager.Instance.RegisterFirstRoomResult(
-                currentRoomScene: "Phone Room",
-                success: true,
-                otherRoomScene: otherRoomSceneName
-            );
-            GameStateManager.Instance.AddForgivenessPoints(successPoints);
-            if (goodGhost != null) goodGhost.SetActive(true);
+            GameStateManager.Instance.CompleteEvent("Phone Room", success);
+            Debug.Log($"[PhoneRoom] Completed. Success: {success}");
         }
         else
         {
-            GameStateManager.Instance.RegisterFirstRoomResult(
-                currentRoomScene: "Phone Room",
-                success: false,
-                otherRoomScene: otherRoomSceneName
-            );
-            if (failPoints != 0) GameStateManager.Instance.AddForgivenessPoints(failPoints);
-            if (badGhost != null) badGhost.SetActive(true);
+            Debug.LogError("[PhoneRoom] GameStateManager not found!");
         }
     }
 }

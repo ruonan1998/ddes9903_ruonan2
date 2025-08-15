@@ -1,64 +1,73 @@
 using UnityEngine;
+using System.Collections;
 
 public class XylophoneRoomController : MonoBehaviour
 {
-    [Header("判定两次同音键")]
-    public KeyCode sunshineKey = KeyCode.A;
+    [Header("引用")]
+    public XylophonePrefabManager prefabManager;
 
-    [Header("好鬼 / 坏鬼")]
-    public GameObject goodGhost;               // 初始隐藏
-    public GameObject badGhost;                // 初始隐藏
+    [Header("倒计时设置")]
+    public float roomTimeLimit = 60f;  
+    public float postSuccessDelay = 2f;
+    public float postFailDelay = 3f;
 
-    [Header("分数 & 另一个房间")]
-    public int successPoints = 1;
-    public int failPoints = 0;
-    public string otherRoomSceneName = "Phone Room";
+    [Header("失败鬼影")]
+    public GameObject failGhostVisual;
 
-    private int step = 0;
-    private bool locked = false;
+    private bool roomCompleted = false;
+    private float timer;
 
-    void Update()
+    private void Start()
     {
-        if (locked) return;
+        if (prefabManager == null)
+            Debug.LogError("[XylophoneRoom] PrefabManager not assigned!");
 
-        if (Input.GetKeyDown(sunshineKey))
+        timer = roomTimeLimit;
+        StartCoroutine(RoomTimer());
+    }
+
+    private void Update()
+    {
+        if (roomCompleted) return;
+
+        // 使用公共只读属性
+        if (prefabManager.PuzzleCompleted)
         {
-            if (step == 0) { step = 1; return; }
-            if (step == 1) { OnSuccess(); return; }
-        }
-        else if (Input.anyKeyDown)
-        {
-            OnFail();
+            roomCompleted = true;
+            StartCoroutine(DelayedComplete(postSuccessDelay, true));
         }
     }
 
-    void OnSuccess()
+    private IEnumerator RoomTimer()
     {
-        locked = true;
+        while (!roomCompleted && timer > 0)
+        {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
 
-        GameStateManager.Instance.RegisterFirstRoomResult(
-            currentRoomScene: "Xylophone Room",
-            success: true,
-            otherRoomScene: otherRoomSceneName
-        );
-        GameStateManager.Instance.AddForgivenessPoints(successPoints);
+        if (!roomCompleted)
+        {
+            roomCompleted = true;
+            if (failGhostVisual != null)
+                failGhostVisual.SetActive(true);
 
-        if (goodGhost != null) goodGhost.SetActive(true);
-        else Debug.LogWarning("[XylophoneRoom] goodGhost 未绑定。");
+            StartCoroutine(DelayedComplete(postFailDelay, false));
+        }
     }
 
-    void OnFail()
+    private IEnumerator DelayedComplete(float delay, bool success)
     {
-        locked = true;
+        yield return new WaitForSeconds(delay);
 
-        GameStateManager.Instance.RegisterFirstRoomResult(
-            currentRoomScene: "Xylophone Room",
-            success: false,
-            otherRoomScene: otherRoomSceneName
-        );
-        if (failPoints != 0) GameStateManager.Instance.AddForgivenessPoints(failPoints);
-
-        if (badGhost != null) badGhost.SetActive(true);
-        else Debug.LogWarning("[XylophoneRoom] badGhost 未绑定。");
+        if (GameStateManager.Instance != null)
+        {
+            GameStateManager.Instance.CompleteEvent("XylophoneRoom", success);
+            Debug.Log($"[XylophoneRoom] Completed. Success: {success}");
+        }
+        else
+        {
+            Debug.LogError("[XylophoneRoom] GameStateManager not found!");
+        }
     }
 }
