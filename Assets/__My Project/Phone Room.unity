@@ -243,7 +243,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &184015383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd228ee14dcd48749a681541d5a3b10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeCanvas: {fileID: 0}
+  fadeCanvas: {fileID: 419619871}
   fadeDuration: 0.3
 --- !u!4 &184015384
 Transform:
@@ -1234,6 +1234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eca2d1fa3ee24a138a2fb309c94ab5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  successDelay: 10
+  failDelay: 9
 --- !u!1 &1020024612 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 586371794476360346, guid: 5c23671c162e28441b4b1d23a03c5cad, type: 3}
@@ -2839,7 +2841,7 @@ PrefabInstance:
     - target: {fileID: 7544921598006190385, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onFirstInteract.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 955045766}
     - target: {fileID: 7544921598006190385, guid: 89f7238d42a1e4944903f82e2200a073, type: 3}
       propertyPath: onFirstInteract.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -3138,6 +3140,10 @@ PrefabInstance:
       propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
       value: 1801810542
       objectReference: {fileID: 0}
+    - target: {fileID: 2922763134815920359, guid: 5c23671c162e28441b4b1d23a03c5cad, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3094198413416866133, guid: 5c23671c162e28441b4b1d23a03c5cad, type: 3}
       propertyPath: matchText
       value: 0473058656
@@ -3189,7 +3195,7 @@ PrefabInstance:
     - target: {fileID: 3094198413416866133, guid: 5c23671c162e28441b4b1d23a03c5cad, type: 3}
       propertyPath: onTextMatch.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 955045766}
     - target: {fileID: 3094198413416866133, guid: 5c23671c162e28441b4b1d23a03c5cad, type: 3}
       propertyPath: onTextMatch.m_PersistentCalls.m_Calls.Array.data[6].m_Target
       value: 
@@ -3615,5 +3621,5 @@ SceneRoots:
   - {fileID: 2141728898}
   - {fileID: 184015384}
   - {fileID: 1302891970}
-  - {fileID: 955045765}
   - {fileID: 419619872}
+  - {fileID: 955045765}

@@ -1,49 +1,40 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class PhoneRoomController : MonoBehaviour
 {
-    [Header("延迟设置")]
-    public float typableMatchDelay = 4f;   // Typable 匹配成功后延迟
-    public float answerButtonDelay = 3f;   // 按下按钮后的延迟
+    [Header("延迟跳转设置（单位：秒）")]
+    public float successDelay = 4f; // TypableMatch 成功或 Answer=成功
+    public float failDelay    = 3f; // Answer=失败（如果你会传 false）
 
-    private bool roomCompleted = false;
+    private bool finished = false;
 
-    /// <summary>
-    /// Typable Match 成功时调用
-    /// </summary>
+    // TypableMatch 成功时调用
     public void OnTypableMatchSuccess()
     {
-        if (roomCompleted) return;
-        roomCompleted = true;
-        StartCoroutine(DelayedComplete(typableMatchDelay, true));
+        if (finished) return;
+        finished = true;
+
+        // 成功 → 交由 GSM 记录 +1 分，并在延迟后自动去下一站/大场景
+        GameStateManager.Instance?.NotifyRoomFinished(
+            GameStateManager.Instance.phoneScene,
+            success: true,
+            delaySeconds: successDelay
+        );
     }
 
-    /// <summary>
-    /// Answer 按钮按下时调用
-    /// </summary>
+    // Answer 按钮按下时调用；由你传入 success=true/false
     public void OnAnswerButtonPressed(bool success)
     {
-        if (roomCompleted) return;
-        roomCompleted = true;
-        StartCoroutine(DelayedComplete(answerButtonDelay, success));
-    }
+        if (finished) return;
+        finished = true;
 
-    /// <summary>
-    /// 延迟后通知 GameStateManager
-    /// </summary>
-    private IEnumerator DelayedComplete(float delay, bool success)
-    {
-        yield return new WaitForSeconds(delay);
+        float delay = success ? successDelay : failDelay;
 
-        if (GameStateManager.Instance != null)
-        {
-            GameStateManager.Instance.CompleteEvent("Phone Room", success);
-            Debug.Log($"[PhoneRoom] Completed. Success: {success}");
-        }
-        else
-        {
-            Debug.LogError("[PhoneRoom] GameStateManager not found!");
-        }
+        GameStateManager.Instance?.NotifyRoomFinished(
+            GameStateManager.Instance.phoneScene,
+            success: success,
+            delaySeconds: delay
+        );
     }
 }

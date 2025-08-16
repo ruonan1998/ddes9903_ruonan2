@@ -1,73 +1,78 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class XylophoneRoomController : MonoBehaviour
 {
-    [Header("引用")]
-    public XylophonePrefabManager prefabManager;
+    [Header("成功判定（二选一，填其一即可）")]
+    public XylophonePrefabManager prefabManager; // 若用木琴谜题完成判定，请拖上来
+    public GameObject goodGhostToggle;           // 若用“好鬼出现”判定，请拖上来
 
-    [Header("倒计时设置")]
-    public float roomTimeLimit = 60f;  
-    public float postSuccessDelay = 2f;
-    public float postFailDelay = 3f;
+    [Header("倒计时/延迟（秒）")]
+    public float roomTimeLimit   = 40f; // 超时=失败
+    public float successDelay    = 2f;  // 成功后延迟跳转
+    public float failDelay       = 4f;  // 失败后延迟跳转
 
-    [Header("失败鬼影")]
-    public GameObject failGhostVisual;
-
-    private bool roomCompleted = false;
+    private bool finished = false;
     private float timer;
 
-    private void Start()
+    void Start()
     {
-        if (prefabManager == null)
-            Debug.LogError("[XylophoneRoom] PrefabManager not assigned!");
-
         timer = roomTimeLimit;
         StartCoroutine(RoomTimer());
     }
 
-    private void Update()
+    void Update()
     {
-        if (roomCompleted) return;
+        if (finished) return;
 
-        // 使用公共只读属性
-        if (prefabManager.PuzzleCompleted)
+        // 方式一：木琴谜题完成
+        if (prefabManager != null && prefabManager.PuzzleCompleted)
         {
-            roomCompleted = true;
-            StartCoroutine(DelayedComplete(postSuccessDelay, true));
+            OnPuzzleSuccess();
+            return;
         }
+
+        // 方式二：好鬼出现即视为成功（从未激活->激活）
+        // 仅当你用这个方式时才检查
+        if (prefabManager == null && goodGhostToggle != null && goodGhostToggle.activeSelf)
+        {
+            OnPuzzleSuccess();
+            return;
+        }
+    }
+
+    private void OnPuzzleSuccess()
+    {
+        if (finished) return;
+        finished = true;
+
+        GameStateManager.Instance?.NotifyRoomFinished(
+            GameStateManager.Instance.xylophoneScene,
+            success: true,               // 成功才 +1 分
+            delaySeconds: successDelay
+        );
+        Debug.Log("[Xylophone] Success.");
     }
 
     private IEnumerator RoomTimer()
     {
-        while (!roomCompleted && timer > 0)
+        while (!finished && timer > 0f)
         {
             timer -= Time.deltaTime;
             yield return null;
         }
 
-        if (!roomCompleted)
+        if (!finished)
         {
-            roomCompleted = true;
-            if (failGhostVisual != null)
-                failGhostVisual.SetActive(true);
+            // 超时=失败（不加分），照样推进流程
+            finished = true;
 
-            StartCoroutine(DelayedComplete(postFailDelay, false));
-        }
-    }
-
-    private IEnumerator DelayedComplete(float delay, bool success)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (GameStateManager.Instance != null)
-        {
-            GameStateManager.Instance.CompleteEvent("XylophoneRoom", success);
-            Debug.Log($"[XylophoneRoom] Completed. Success: {success}");
-        }
-        else
-        {
-            Debug.LogError("[XylophoneRoom] GameStateManager not found!");
+            GameStateManager.Instance?.NotifyRoomFinished(
+                GameStateManager.Instance.xylophoneScene,
+                success: false,
+                delaySeconds: failDelay
+            );
+            Debug.Log("[Xylophone] Timeout -> Fail.");
         }
     }
 }

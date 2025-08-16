@@ -250,12 +250,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb7019a0f8d674d80916cea22539e7d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomName: Xylophone Room
-  xylophoneManager: {fileID: 1093856418}
-  maxTime: 40
-  delayAfterSuccess: 7
-  delayAfterFail: 4
-  fadeScreen: {fileID: 2105116597}
+  prefabManager: {fileID: 1093856418}
+  goodGhostToggle: {fileID: 0}
+  roomTimeLimit: 40
+  successDelay: 11
+  failDelay: 4
 --- !u!4 &49237289
 Transform:
   m_ObjectHideFlags: 0
@@ -900,56 +899,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &478443496
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 478443498}
-  - component: {fileID: 478443499}
-  m_Layer: 0
-  m_Name: XylophoneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &478443498
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478443496}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.34510118, y: 1.3018558, z: 4.1553907}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &478443499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478443496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb7019a0f8d674d80916cea22539e7d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomName: Xylophone Room
-  xylophoneManager: {fileID: 0}
-  maxTime: 60
-  delayAfterSuccess: 2
-  delayAfterFail: 2
-  fadeScreen: {fileID: 0}
 --- !u!1 &569956564 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7346641016729602621, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
@@ -1636,7 +1585,7 @@ MonoBehaviour:
   highlightColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   errorColor: {r: 1, g: 0, b: 0, a: 1}
   highlightDuration: 0.2
-  allowedInterval: 3
+  allowedInterval: 4
 --- !u!1 &1116901149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2071,7 +2020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1252443214
 Transform:
   m_ObjectHideFlags: 0
@@ -2555,22 +2504,6 @@ MonoBehaviour:
   subject: {fileID: 1574118037}
   defaultState: 0
   syncStateObject: {fileID: 0}
---- !u!114 &1574118046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574118037}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6613a71eb21ff4c4d8a567e4d04f3ad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomName: Xylophone Room
-  isGoodGhost: 0
-  ghostDisplayTime: 3
-  ghostVisual: {fileID: 0}
 --- !u!65 &1574118047
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3390,8 +3323,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ed3e77c34202b4729b508855e31b7a1c, type: 3}
-  m_Resource: {fileID: 8300000, guid: ed3e77c34202b4729b508855e31b7a1c, type: 3}
+  m_audioClip: {fileID: 8300000, guid: a62b76509fbbc4648b9c28737dc6b81f, type: 3}
+  m_Resource: {fileID: 8300000, guid: a62b76509fbbc4648b9c28737dc6b81f, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.1
   m_Pitch: 1
@@ -3795,27 +3728,27 @@ PrefabInstance:
       objectReference: {fileID: -3522955778539423533, guid: 099e85088a5b54f06a8899260630d6b4, type: 3}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.042933594
+      value: 0.054319583
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.042933594
+      value: 0.054319583
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.042933594
+      value: 0.054319583
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.262
+      value: 0.25538
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.788
+      value: 0.78592
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 4.632
+      value: 4.5989
       objectReference: {fileID: 0}
     - target: {fileID: 6706549851965135129, guid: d12f7195f0ab847a789996c371735ca5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4499,9 +4432,6 @@ PrefabInstance:
       addedObject: {fileID: 371536005160447587}
     - targetCorrespondingSourceObject: {fileID: 8420832291139865296, guid: 40eaf01dcdc784146b5a0c7348a27b08, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 371536005160447590}
-    - targetCorrespondingSourceObject: {fileID: 8420832291139865296, guid: 40eaf01dcdc784146b5a0c7348a27b08, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 371536005160447591}
     - targetCorrespondingSourceObject: {fileID: 8420832291139865510, guid: 40eaf01dcdc784146b5a0c7348a27b08, type: 3}
       insertIndex: -1
@@ -4532,22 +4462,6 @@ MonoBehaviour:
   subject: {fileID: 371536005160447584}
   defaultState: 0
   syncStateObject: {fileID: 0}
---- !u!114 &371536005160447590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 371536005160447584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6613a71eb21ff4c4d8a567e4d04f3ad4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roomName: Xylophone Room
-  isGoodGhost: 1
-  ghostDisplayTime: 3
-  ghostVisual: {fileID: 0}
 --- !u!65 &371536005160447591
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4642,9 +4556,6 @@ PrefabInstance:
       addedObject: {fileID: 1574118042}
     - targetCorrespondingSourceObject: {fileID: 5850244009779960710, guid: 4812d730837804ff2951be6aa91b2300, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1574118046}
-    - targetCorrespondingSourceObject: {fileID: 5850244009779960710, guid: 4812d730837804ff2951be6aa91b2300, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1574118047}
   m_SourcePrefab: {fileID: 100100000, guid: 4812d730837804ff2951be6aa91b2300, type: 3}
 --- !u!1660057539 &9223372036854775807
@@ -4670,7 +4581,6 @@ SceneRoots:
   - {fileID: 1750549197}
   - {fileID: 920854785}
   - {fileID: 157756688}
-  - {fileID: 478443498}
   - {fileID: 1796821995}
   - {fileID: 1057224890}
   - {fileID: 1537293032}
