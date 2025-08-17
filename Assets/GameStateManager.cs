@@ -10,14 +10,14 @@ public class GameStateManager : MonoBehaviour
     [Header("Scene Names (必须与 Build Settings 完全一致)")]
     public string xylophoneScene = "Xylophone Room";
     public string phoneScene     = "Phone Room";
-    public string bigScene       = "Main Scene"; // 你的大场景名，Inspector 里改
+    public string bigScene       = "Main Scene"; // 你的大场景名
 
     [Header("大场景里的固定落点物体名")]
     public string bigSceneSpawnName = "SpawnPoint"; // 大场景里放一个同名空物体
 
-    [Header("分值（只统计房间交互成功）")]
-    [Tooltip("成功一次 +1，最大 2 分（两个房间）")]
-    public int successScore = 0;    // 0~2
+    [Header("分值（只统计房间交互成功；娃娃额外+1 可超出2）")]
+    [Tooltip("房间成功一次 +1（最大两次=2），娃娃可再+1，总分阈值由你在结局里判定")]
+    public int successScore = 0;    // 初始 0；房间成功各+1（封顶2），娃娃按钮可再+1
 
     // 房间完成记录：null=未完成, true=成功, false=失败
     private Dictionary<string, bool?> roomResult = new Dictionary<string, bool?>();
@@ -28,7 +28,7 @@ public class GameStateManager : MonoBehaviour
         {
             Instance = this;
             roomResult[xylophoneScene] = null;
-            roomResult[phoneScene] = null;
+            roomResult[phoneScene]     = null;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -38,24 +38,24 @@ public class GameStateManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 由房间控制器在交互结束时调用。
+    /// 由房间控制器在交互结束时调用（成功才+1分）。
     /// </summary>
-    /// <param name="roomName">当前房间场景名</param>
-    /// <param name="success">是否成功（成功才+1分）</param>
-    /// <param name="delaySeconds">延迟多少秒再跳转</param>
     public void NotifyRoomFinished(string roomName, bool success, float delaySeconds)
     {
-        // 只记录一次
-        if (roomResult.ContainsKey(roomName) && roomResult[roomName].HasValue == false)
-        {
-            // 已有 false，说明之前记录过失败；但是为了保险不重复记录，直接返回
-            // 不过一般不会走到这
-        }
-
         roomResult[roomName] = success;
 
+        // 房间成功才 +1；此处仅把房间得分封顶到2（娃娃不受此限制）
         if (success)
-            successScore = Mathf.Clamp(successScore + 1, 0, 2); // 只来自房间，最大 2
+        {
+            int roomSuccesses = 0;
+            if (roomResult.ContainsKey(xylophoneScene) && roomResult[xylophoneScene] == true) roomSuccesses++;
+            if (roomResult.ContainsKey(phoneScene)     && roomResult[phoneScene]     == true) roomSuccesses++;
+
+            // 先把 successScore 去掉房间部分的封顶束缚，随后再校正。
+            // 简化：如果已有房间成功次数 > 当前已计入的房间分，就同步到房间成功次数
+            int dollBonus = Mathf.Max(0, successScore - 2); // 假定2是房间成功的上限
+            successScore = Mathf.Min(roomSuccesses, 2) + dollBonus;
+        }
 
         Debug.Log($"[GSM] Room '{roomName}' finished. success={success}, score={successScore}");
 
@@ -111,18 +111,16 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
-    // —— 供以后结局判定脚本读取 —— //
+    // —— 供结局读取 —— //
     public int GetScore() => successScore;
     public bool? GetRoomResult(string roomSceneName)
-    {
-        return roomResult.ContainsKey(roomSceneName) ? roomResult[roomSceneName] : null;
-    }
+        => roomResult.ContainsKey(roomSceneName) ? roomResult[roomSceneName] : null;
 
-    // (可选) 测试时重置
+    // 测试重置
     public void ResetProgress()
     {
         roomResult[xylophoneScene] = null;
-        roomResult[phoneScene] = null;
+        roomResult[phoneScene]     = null;
         successScore = 0;
     }
 }

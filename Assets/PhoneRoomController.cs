@@ -15,7 +15,6 @@ public class PhoneRoomController : MonoBehaviour
         if (finished) return;
         finished = true;
 
-        // 成功 → 交由 GSM 记录 +1 分，并在延迟后自动去下一站/大场景
         GameStateManager.Instance?.NotifyRoomFinished(
             GameStateManager.Instance.phoneScene,
             success: true,
