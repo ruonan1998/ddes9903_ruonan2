@@ -28,11 +28,11 @@ public class EndingManager_Simplified : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         ghostSmile.SetActive(true);
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         ghostSmile.SetActive(false);
         Debug.Log("鬼探头出现");
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         screamImage.alpha = 1f;
         screamImage.gameObject.SetActive(true);
         ForceUIFullyOpaque(screamImage);
@@ -40,7 +40,7 @@ public class EndingManager_Simplified : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
         houseGroup.SetActive(false);
-        yield return new WaitForSeconds(10f); // <-- 这里给玩家20秒自由时间
+        yield return new WaitForSeconds(10f); // <-- 这里给玩家10秒自由时间
 
         blackScreen.alpha = 0f;
         blackScreen.gameObject.SetActive(true);

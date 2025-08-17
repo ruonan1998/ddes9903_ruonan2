@@ -19,6 +19,9 @@ public class RestartWithGhost : MonoBehaviour
     [Header("黑屏淡入/淡出时间")]
     public float fadeDuration = 1f;
 
+    [Header("传送控制")]
+    public bool overrideGameStateTeleport = true; // ✅ 是否覆盖 GSM 传送
+
     // 缓存初始状态
     private List<Transform> allObjects = new List<Transform>();
     private Dictionary<Transform, Vector3> initialPositions = new Dictionary<Transform, Vector3>();
@@ -82,9 +85,12 @@ public class RestartWithGhost : MonoBehaviour
             obj.gameObject.SetActive(initialActiveStates[obj.gameObject]);
         }
 
-        // 传送玩家
-        player.transform.position = targetPoint.position;
-        player.transform.rotation = targetPoint.rotation;
+        // 传送玩家（避免和 GameStateManager 冲突）
+        if (overrideGameStateTeleport && player != null && targetPoint != null)
+        {
+            player.transform.position = targetPoint.position;
+            player.transform.rotation = targetPoint.rotation;
+        }
 
         // ✅ 激活鬼和滤镜
         if (ghost != null) ghost.SetActive(true);

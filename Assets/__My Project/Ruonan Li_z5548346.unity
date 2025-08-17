@@ -2432,9 +2432,9 @@ MonoBehaviour:
   ghostSmile: {fileID: 503378013}
   screamImage: {fileID: 688886395}
   houseGroup: {fileID: 1134636909}
-  blackScreen: {fileID: 1811658427}
-  secondMusic: {fileID: 1312431791}
-  familyPhoto: {fileID: 1754363310}
+  blackScreen: {fileID: 0}
+  secondMusic: {fileID: 0}
+  familyPhoto: {fileID: 0}
 --- !u!4 &51992416 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7c3b83889b7df884785dc243960ac365, type: 3}
@@ -5629,19 +5629,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2620975524404474784, guid: 3fb41efb2914c9f419fcc7156e6b30f6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.40805647
+      value: 0.4080541
       objectReference: {fileID: 0}
     - target: {fileID: 2620975524404474784, guid: 3fb41efb2914c9f419fcc7156e6b30f6, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0030286424
+      value: 0.0033329066
       objectReference: {fileID: 0}
     - target: {fileID: 2620975524404474784, guid: 3fb41efb2914c9f419fcc7156e6b30f6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.91292655
+      value: -0.91292125
       objectReference: {fileID: 0}
     - target: {fileID: 2620975524404474784, guid: 3fb41efb2914c9f419fcc7156e6b30f6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.006775847
+      value: 0.007456563
       objectReference: {fileID: 0}
     - target: {fileID: 2620975524404474784, guid: 3fb41efb2914c9f419fcc7156e6b30f6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7931,7 +7931,7 @@ Transform:
   m_GameObject: {fileID: 343487246}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.1, y: 1.01, z: 67.1}
+  m_LocalPosition: {x: 67.1, y: 0.8, z: 67.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34474,7 +34474,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 8f39de29ec4e9483bb7688425885a25d, type: 2}
+  m_Material: {fileID: 2100000, guid: f8306d8aa1bb5419c80a03a8e4f30d75, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -37738,19 +37738,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1174408728636044647, guid: 33cd395b0464d424299265fa09ce6066, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.5187694
+      value: 0.5187608
       objectReference: {fileID: 0}
     - target: {fileID: 1174408728636044647, guid: 33cd395b0464d424299265fa09ce6066, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.0076766247
+      value: 0.008234017
       objectReference: {fileID: 0}
     - target: {fileID: 1174408728636044647, guid: 33cd395b0464d424299265fa09ce6066, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8547862
+      value: -0.8547722
       objectReference: {fileID: 0}
     - target: {fileID: 1174408728636044647, guid: 33cd395b0464d424299265fa09ce6066, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0126489205
+      value: 0.013567348
       objectReference: {fileID: 0}
     - target: {fileID: 1174408728636044647, guid: 33cd395b0464d424299265fa09ce6066, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -38261,7 +38261,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5477663902695651912, guid: df63664dbdd376b4298726771ab129fa, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.01
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5477663902695651912, guid: df63664dbdd376b4298726771ab129fa, type: 3}
       propertyPath: m_LocalPosition.z
@@ -42945,12 +42945,12 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1413707285}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b19395cd485a1463dbb550f0b6116e7a, type: 3}
-  m_Resource: {fileID: 8300000, guid: b19395cd485a1463dbb550f0b6116e7a, type: 3}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -47198,7 +47198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endingManager: {fileID: 1818388774}
-  endingIndex: 0
+  endingIndex: 2
 --- !u!4 &1578526426 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 06fab24394ef2aa4d946137c523cbde9, type: 3}
@@ -48008,7 +48008,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endingController: {fileID: 50052711}
-  delay: 2
+  delay: 0
 --- !u!114 &1599088744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48028,6 +48028,7 @@ MonoBehaviour:
   blackScreen: {fileID: 11641549}
   delayBeforeTeleport: 4
   fadeDuration: 1
+  overrideGameStateTeleport: 1
 --- !u!1001 &1599851168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54054,6 +54055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1817983847}
+  - component: {fileID: 1817983848}
   m_Layer: 0
   m_Name: MainSceneSpawnPoint
   m_TagString: Untagged
@@ -54076,6 +54078,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 9.868, z: 0}
+--- !u!114 &1817983848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817983846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b7b730cc0ea7a34c842decd1ecee994, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  subject: {fileID: 1817983846}
+  defaultState: 1
+  syncStateObject: {fileID: 0}
 --- !u!1 &1818388770
 GameObject:
   m_ObjectHideFlags: 0
@@ -57469,7 +57486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerExit.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -57538,7 +57555,7 @@ PrefabInstance:
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[4].m_Target
       value: 
-      objectReference: {fileID: 1517699986}
+      objectReference: {fileID: 1817983848}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[5].m_Target
       value: 
@@ -57609,7 +57626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
-      value: Play
+      value: Toggle
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[5].m_MethodName
@@ -57645,7 +57662,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: UnityEngine.AudioSource, UnityEngine
+      value: ItemActiveToggle, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7772526916590547685, guid: 8fedd5b0825719b4ca51c693db71c38d, type: 3}
       propertyPath: onTriggerEnter.m_PersistentCalls.m_Calls.Array.data[5].m_TargetAssemblyTypeName
@@ -59536,7 +59553,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ghostSmile: {fileID: 1685264265}
-  screamImage: {fileID: 1283285547}
+  screamImage: {fileID: 1413707286}
   houseGroup: {fileID: 1134636909}
   blackScreen: {fileID: 1283285547}
   secondMusic: {fileID: 1312431791}
